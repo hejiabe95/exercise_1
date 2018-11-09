@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="ticket">
+            <h2><span jhiTranslate="exerciseApp.ticket.detail.title">Ticket</span> {{ticket.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="exerciseApp.ticket.passengerName">Passenger Name</span></dt>
+                <dd>
+                    <span>{{ticket.passengerName}}</span>
+                </dd>
+                <dt><span jhiTranslate="exerciseApp.ticket.orderDate">Order Date</span></dt>
+                <dd>
+                    <span>{{ticket.orderDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="exerciseApp.ticket.seatLevel">Seat Level</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'exerciseApp.SeatLevel.' + ticket.seatLevel}}">{{ticket.seatLevel}}</span>
+                </dd>
+                <dt><span jhiTranslate="exerciseApp.ticket.ticketPrice">Ticket Price</span></dt>
+                <dd>
+                    <span>{{ticket.ticketPrice}}</span>
+                </dd>
+                <dt><span jhiTranslate="exerciseApp.ticket.flight">Flight</span></dt>
+                <dd>
+                    <div *ngIf="ticket.flight">
+                        <a [routerLink]="['/flight', ticket.flight?.id, 'view']">{{ticket.flight?.flightCode}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="exerciseApp.ticket.user">User</span></dt>
+                <dd>
+                    {{ticket.user?.login}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/ticket', ticket.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

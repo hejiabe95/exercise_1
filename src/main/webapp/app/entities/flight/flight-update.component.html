@@ -1,0 +1,82 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-flight-heading" jhiTranslate="exerciseApp.flight.home.createOrEditLabel">Create or edit a Flight</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!flight.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="flight.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.flight.flightCode" for="field_flightCode">Flight Code</label>
+                    <input type="text" class="form-control" name="flightCode" id="field_flightCode"
+                        [(ngModel)]="flight.flightCode" required/>
+                    <div [hidden]="!(editForm.controls.flightCode?.dirty && editForm.controls.flightCode?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.flightCode?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.flight.departureDate" for="field_departureDate">Departure Date</label>
+                    <div class="d-flex">
+                        <input id="field_departureDate" type="datetime-local" class="form-control" name="departureDate" [(ngModel)]="departureDate"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.departureDate?.dirty && editForm.controls.departureDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.departureDate?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.departureDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.flight.fcsRemain" for="field_fcsRemain">Fcs Remain</label>
+                    <input type="number" class="form-control" name="fcsRemain" id="field_fcsRemain"
+                        [(ngModel)]="flight.fcsRemain" required/>
+                    <div [hidden]="!(editForm.controls.fcsRemain?.dirty && editForm.controls.fcsRemain?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.fcsRemain?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.fcsRemain?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.flight.ecsRemain" for="field_ecsRemain">Ecs Remain</label>
+                    <input type="number" class="form-control" name="ecsRemain" id="field_ecsRemain"
+                        [(ngModel)]="flight.ecsRemain" required/>
+                    <div [hidden]="!(editForm.controls.ecsRemain?.dirty && editForm.controls.ecsRemain?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.ecsRemain?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.ecsRemain?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

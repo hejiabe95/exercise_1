@@ -1,0 +1,94 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-ticket-heading" jhiTranslate="exerciseApp.ticket.home.createOrEditLabel">Create or edit a Ticket</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!ticket.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="ticket.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.ticket.passengerName" for="field_passengerName">Passenger Name</label>
+                    <input type="text" class="form-control" name="passengerName" id="field_passengerName"
+                        [(ngModel)]="ticket.passengerName" required/>
+                    <div [hidden]="!(editForm.controls.passengerName?.dirty && editForm.controls.passengerName?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.passengerName?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.ticket.orderDate" for="field_orderDate">Order Date</label>
+                    <div class="d-flex">
+                        <input id="field_orderDate" type="datetime-local" class="form-control" name="orderDate" [(ngModel)]="orderDate"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.orderDate?.dirty && editForm.controls.orderDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.orderDate?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.orderDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.ticket.seatLevel" for="field_seatLevel">Seat Level</label>
+                    <select class="form-control" name="seatLevel" [(ngModel)]="ticket.seatLevel" id="field_seatLevel"  required>
+                        <option value="FCS">{{'exerciseApp.SeatLevel.FCS' | translate}}</option>
+                        <option value="ECS">{{'exerciseApp.SeatLevel.ECS' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.seatLevel?.dirty && editForm.controls.seatLevel?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.seatLevel?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.ticket.ticketPrice" for="field_ticketPrice">Ticket Price</label>
+                    <input type="number" class="form-control" name="ticketPrice" id="field_ticketPrice"
+                        [(ngModel)]="ticket.ticketPrice" required/>
+                    <div [hidden]="!(editForm.controls.ticketPrice?.dirty && editForm.controls.ticketPrice?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.ticketPrice?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.ticketPrice?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.ticket.flight" for="field_flight">Flight</label>
+                    <select class="form-control" id="field_flight" name="flight" [(ngModel)]="ticket.flight" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="flightOption.id === ticket.flight?.id ? ticket.flight : flightOption" *ngFor="let flightOption of flights; trackBy: trackFlightById">{{flightOption.flightCode}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="exerciseApp.ticket.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="ticket.user" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === ticket.user?.id ? ticket.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

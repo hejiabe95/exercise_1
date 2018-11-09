@@ -1,0 +1,38 @@
+entity Flight {
+	flightCode String required,
+	departureDate Instant required,
+    fcsRemain Integer required,
+    ecsRemain Integer required
+}
+
+entity Ticket {
+	passengerName String required,
+	orderDate Instant required,
+	seatLevel SeatLevel required,
+	ticketPrice Integer required
+}
+
+entity UserSalesStats {
+     salesAmout Integer required,
+     ticketAmout Integer required,
+     fcsAmout Integer required,
+     ecsAmout Integer required
+}
+
+
+enum SeatLevel {
+    FCS, ECS
+}
+
+relationship ManyToOne {
+	Ticket{flight(flightCode)} to Flight,
+    Ticket{user(login)} to User
+}
+
+relationship OneToOne{
+    UserSalesStats{user(login)} to User
+}
+
+paginate Ticket, Flight, UserSalesStats with infinite-scroll
+
+

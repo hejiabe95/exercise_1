@@ -1,0 +1,25 @@
+{
+    "exerciseApp": {
+        "userSalesStats": {
+            "home": {
+                "title": "User Sales Stats",
+                "createLabel": "Create a new User Sales Stats",
+                "createOrEditLabel": "Create or edit a User Sales Stats"
+            },
+            "created": "A new User Sales Stats is created with identifier {{ param }}",
+            "updated": "A User Sales Stats is updated with identifier {{ param }}",
+            "deleted": "A User Sales Stats is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete User Sales Stats {{ id }}?"
+            },
+            "detail": {
+                "title": "User Sales Stats"
+            },
+            "salesAmout": "Sales Amout",
+            "ticketAmout": "Ticket Amout",
+            "fcsAmout": "Fcs Amout",
+            "ecsAmout": "Ecs Amout",
+            "user": "User"
+        }
+    }
+}

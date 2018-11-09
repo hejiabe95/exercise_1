@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userSalesStats">
+            <h2><span jhiTranslate="exerciseApp.userSalesStats.detail.title">User Sales Stats</span> {{userSalesStats.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="exerciseApp.userSalesStats.salesAmout">Sales Amout</span></dt>
+                <dd>
+                    <span>{{userSalesStats.salesAmout}}</span>
+                </dd>
+                <dt><span jhiTranslate="exerciseApp.userSalesStats.ticketAmout">Ticket Amout</span></dt>
+                <dd>
+                    <span>{{userSalesStats.ticketAmout}}</span>
+                </dd>
+                <dt><span jhiTranslate="exerciseApp.userSalesStats.fcsAmout">Fcs Amout</span></dt>
+                <dd>
+                    <span>{{userSalesStats.fcsAmout}}</span>
+                </dd>
+                <dt><span jhiTranslate="exerciseApp.userSalesStats.ecsAmout">Ecs Amout</span></dt>
+                <dd>
+                    <span>{{userSalesStats.ecsAmout}}</span>
+                </dd>
+                <dt><span jhiTranslate="exerciseApp.userSalesStats.user">User</span></dt>
+                <dd>
+                    {{userSalesStats.user?.login}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-sales-stats', userSalesStats.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
