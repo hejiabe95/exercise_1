@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Spring Data  repository for the UserSalesStats entity.
+ * @author hejiabei
+ * @date 2018/11/9
  */
-@SuppressWarnings("unused")
 @Repository
 public interface UserSalesStatsRepository extends JpaRepository<UserSalesStats, Long> {
 

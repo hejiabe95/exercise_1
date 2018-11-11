@@ -10,6 +10,8 @@ import java.util.Objects;
 
 /**
  * A Flight.
+ * @author hejiabei
+ * @date 2018/11/9
  */
 @Entity
 @Table(name = "flight")
@@ -30,10 +32,12 @@ public class Flight implements Serializable {
     private Instant departureDate;
 
     @NotNull
+    @Min(value = 0, message = "no fcs rest!!")
     @Column(name = "fcs_remain", nullable = false)
     private Integer fcsRemain;
 
     @NotNull
+    @Min(value = 0, message = "no ecs rest!!")
     @Column(name = "ecs_remain", nullable = false)
     private Integer ecsRemain;
 

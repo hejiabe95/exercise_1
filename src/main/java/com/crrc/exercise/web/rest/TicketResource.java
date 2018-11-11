@@ -2,7 +2,9 @@ package com.crrc.exercise.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.crrc.exercise.domain.Ticket;
+import com.crrc.exercise.repository.FlightRepository;
 import com.crrc.exercise.repository.TicketRepository;
+import com.crrc.exercise.service.TicketSevice;
 import com.crrc.exercise.web.rest.errors.BadRequestAlertException;
 import com.crrc.exercise.web.rest.util.HeaderUtil;
 import com.crrc.exercise.web.rest.util.PaginationUtil;
@@ -25,6 +27,8 @@ import java.util.Optional;
 
 /**
  * REST controller for managing Ticket.
+ * @author hejiabei
+ * @date 2018/11/9
  */
 @RestController
 @RequestMapping("/api")
@@ -36,10 +40,12 @@ public class TicketResource {
 
     private final TicketRepository ticketRepository;
 
-    public TicketResource(TicketRepository ticketRepository) {
-        this.ticketRepository = ticketRepository;
-    }
+    private final TicketSevice ticketSevice;
 
+    public TicketResource(TicketRepository ticketRepository, TicketSevice ticketSevice) {
+        this.ticketRepository = ticketRepository;
+        this.ticketSevice = ticketSevice;
+    }
     /**
      * POST  /tickets : Create a new ticket.
      *
@@ -54,7 +60,7 @@ public class TicketResource {
         if (ticket.getId() != null) {
             throw new BadRequestAlertException("A new ticket cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Ticket result = ticketRepository.save(ticket);
+        Ticket result = ticketSevice.createTicket(ticket);
         return ResponseEntity.created(new URI("/api/tickets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
