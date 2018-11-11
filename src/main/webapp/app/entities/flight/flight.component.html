@@ -1,9 +1,9 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="exerciseApp.flight.home.title">Flights</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-flight" [routerLink]="['/flight/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-flight" [routerLink]="['/flight/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="exerciseApp.flight.home.createLabel">
+            <span  jhiTranslate="exerciseApp.flight.home.createLabel" >
             Create new Flight
             </span>
         </button>

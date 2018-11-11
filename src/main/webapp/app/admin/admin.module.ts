@@ -8,10 +8,16 @@ import { ExerciseSharedModule } from 'app/shared';
 import {
     adminState,
     AuditsComponent,
+    // 营业员管理部分
     UserMgmtComponent,
     UserMgmtDetailComponent,
     UserMgmtUpdateComponent,
     UserMgmtDeleteDialogComponent,
+    // 航班管理部分
+    // FlightMgmtComponent,
+    // FlightMgmtDetailComponent,
+    // FlightMgmtUpdateComponent,
+    // FlightMgmtDeleteDialogComponent,
     LogsComponent,
     JhiMetricsMonitoringModalComponent,
     JhiMetricsMonitoringComponent,

@@ -19,6 +19,8 @@ import { ExerciseEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+// import { DeleteComponent } from './operating/delete/delete.component';
+// import { DeleteairComponent } from './operating/deleteair/deleteair.component';
 
 @NgModule({
     imports: [
