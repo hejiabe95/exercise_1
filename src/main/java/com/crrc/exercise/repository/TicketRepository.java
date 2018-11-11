@@ -8,8 +8,9 @@ import java.util.List;
 
 /**
  * Spring Data  repository for the Ticket entity.
+ * @author hejiabei
+ * @date 2018/11/9
  */
-@SuppressWarnings("unused")
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 

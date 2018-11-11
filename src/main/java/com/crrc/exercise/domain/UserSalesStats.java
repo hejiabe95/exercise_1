@@ -9,6 +9,8 @@ import java.util.Objects;
 
 /**
  * A UserSalesStats.
+ * @author hejiabei
+ * @date 2018/11/9
  */
 @Entity
 @Table(name = "user_sales_stats")

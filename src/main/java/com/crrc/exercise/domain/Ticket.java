@@ -13,6 +13,8 @@ import com.crrc.exercise.domain.enumeration.SeatLevel;
 
 /**
  * A Ticket.
+ * @author hejiabei
+ * @date 2018/11/9
  */
 @Entity
 @Table(name = "ticket")
