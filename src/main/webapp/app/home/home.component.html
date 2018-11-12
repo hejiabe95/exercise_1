@@ -3,13 +3,14 @@
         <span class="hipster img-fluid rounded"></span>
     </div>
     <div class="col-md-9">
-        <h1 class="display-4">Welcome to Hunan Airlines!</h1>
-        <p class="lead" jhiTranslate="home.subtitle">This is your homepage</p>
+        <h1 class="display-4">Welcome to Emirates!!</h1>
+        <p class="lead" >Emirates (also known as by marketing phrase Fly Emirates) is the national airline of Dubai, United Arab Emirates. </p>
+        <p class="lead" >It is the largest airline in the Middle East, operating over 2,400 passenger flights per week, from its hub at Dubai International Airport Terminal 3, to 105 cities in 62 countries across six continents.The company also operates three of the ten world's longest non-stop commercial flights from Dubai to Los Angeles, San Francisco and Houston. Emirates is a subsidiary of The Emirates Group, which has over 50,000 employees, and is wholly-owned by the Government of Dubai directly under the Investment Corporation of Dubai. Cargo activities are undertaken by the Emirates Group's Emirates SkyCargo division.</p>
 
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
                 <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
-                    translateValues="{username: '{{account.login}}'}"> You are logged in as user "{{account.login}}". </span>
+                    translateValues="{username: '{{account.login}}'}"> You are logged in as "{{account.login}}". </span>
             </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">

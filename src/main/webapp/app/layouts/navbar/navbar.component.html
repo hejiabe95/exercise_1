@@ -5,7 +5,7 @@
         </a>
         <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
             <span class="logo-img"></span>
-            <span  class="navbar-title">Hunan Airlines domestic ticket business system</span>
+            <span  class="navbar-title">Emirates domestic ticket business system</span>
         </a>
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
@@ -57,13 +57,7 @@
                             <span jhiTranslate="global.menu.admin.userManagement">User Management</span>
                         </a>
                     </li>
-                    <!-- 增加 航班管理 -->
-                    <li>
-                        <a class="dropdown-item" routerLink="flight" routerLinkActive="active" (click)="collapseNavbar()">
-                            <fa-icon [icon]="'asterisk'"  [fixedWidth]="true"></fa-icon>
-                            <span >Flight Management</span>
-                        </a>
-                    </li>
+
 
                     <!-- 增加 业务量查询 -->
                     <li>

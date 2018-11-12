@@ -9,8 +9,6 @@ import java.util.Objects;
 
 /**
  * A UserSalesStats.
- * @author hejiabei
- * @date 2018/11/9
  */
 @Entity
 @Table(name = "user_sales_stats")
@@ -98,6 +96,7 @@ public class UserSalesStats implements Serializable {
         return this;
     }
 
+
     public void setEcsAmout(Integer ecsAmout) {
         this.ecsAmout = ecsAmout;
     }
@@ -145,5 +144,19 @@ public class UserSalesStats implements Serializable {
             ", fcsAmout=" + getFcsAmout() +
             ", ecsAmout=" + getEcsAmout() +
             "}";
+    }
+
+    public void inti(User user)
+    {
+        this.setUser(user);
+        this.setSalesAmout(0);
+        this.setTicketAmout(0);
+        this.setEcsAmout(0);
+        this.setFcsAmout(0);
+    }
+
+    public boolean selfCheck()
+    {
+        return this.getEcsAmout()>=0&&this.getFcsAmout()>=0&&this.getSalesAmout()>=0&&this.getTicketAmout()>=0;
     }
 }

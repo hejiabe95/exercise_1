@@ -1,10 +1,10 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="exerciseApp.flight.home.title">Flights</span>
+        <span>Flights database</span>
         <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-flight" [routerLink]="['/flight/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="exerciseApp.flight.home.createLabel" >
-            Create new Flight
+            <span >
+            Register a new flight to database
             </span>
         </button>
     </h2>
@@ -16,7 +16,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="flightCode"><span jhiTranslate="exerciseApp.flight.flightCode">Flight Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="departureDate"><span jhiTranslate="exerciseApp.flight.departureDate">Departure Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="departureDate"><span>Register Time</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="fcsRemain"><span jhiTranslate="exerciseApp.flight.fcsRemain">Fcs Remain</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="ecsRemain"><span jhiTranslate="exerciseApp.flight.ecsRemain">Ecs Remain</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -27,15 +27,15 @@
                 <td><a [routerLink]="['/flight', flight.id, 'view' ]">{{flight.id}}</a></td>
                 <td>{{flight.flightCode}}</td>
                 <td>{{flight.departureDate | date:'medium'}}</td>
-                <td>{{flight.fcsRemain}}</td>
-                <td>{{flight.ecsRemain}}</td>
+                <td><span class="badge badge-danger">{{flight.fcsRemain}}</span></td>
+                <td><span class="badge badge-danger">{{flight.ecsRemain}}</span></td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/flight', flight.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            <span class="d-none d-md-inline">Details</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/flight', flight.id, 'edit']"
@@ -49,7 +49,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            <span class="d-none d-md-inline">Remove</span>
                         </button>
                     </div>
                 </td>

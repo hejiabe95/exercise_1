@@ -10,7 +10,7 @@ import { ITicket } from 'app/shared/model/ticket.model';
 import { TicketService } from './ticket.service';
 import { IFlight } from 'app/shared/model/flight.model';
 import { FlightService } from 'app/entities/flight';
-import { IUser, UserService } from 'app/core';
+import { Account, IUser, Principal, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-ticket-update',
@@ -24,9 +24,11 @@ export class TicketUpdateComponent implements OnInit {
 
     users: IUser[];
     orderDate: string;
+    account: Account;
 
     constructor(
         private jhiAlertService: JhiAlertService,
+        private principal: Principal,
         private ticketService: TicketService,
         private flightService: FlightService,
         private userService: UserService,
@@ -35,8 +37,13 @@ export class TicketUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
+        this.principal.identity().then(account => {
+            this.account = account;
+            this.ticket.user = account;
+        });
         this.activatedRoute.data.subscribe(({ ticket }) => {
             this.ticket = ticket;
+            this.ticket.orderDate = moment();
             this.orderDate = this.ticket.orderDate != null ? this.ticket.orderDate.format(DATE_TIME_FORMAT) : null;
         });
         this.flightService.query().subscribe(

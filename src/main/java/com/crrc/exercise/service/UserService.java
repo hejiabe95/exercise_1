@@ -2,9 +2,13 @@ package com.crrc.exercise.service;
 
 import com.crrc.exercise.config.Constants;
 import com.crrc.exercise.domain.Authority;
+import com.crrc.exercise.domain.Ticket;
 import com.crrc.exercise.domain.User;
+import com.crrc.exercise.domain.UserSalesStats;
 import com.crrc.exercise.repository.AuthorityRepository;
+import com.crrc.exercise.repository.TicketRepository;
 import com.crrc.exercise.repository.UserRepository;
+import com.crrc.exercise.repository.UserSalesStatsRepository;
 import com.crrc.exercise.security.AuthoritiesConstants;
 import com.crrc.exercise.security.SecurityUtils;
 import com.crrc.exercise.service.dto.UserDTO;
@@ -14,6 +18,7 @@ import com.crrc.exercise.web.rest.errors.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -30,12 +36,18 @@ import java.util.stream.Collectors;
  * Service class for managing users.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
+    private static final String ENTITY_NAME = "user";
+
     private final UserRepository userRepository;
+
+    private final UserSalesStatsRepository userSalesStatsRepository;
+
+    private final TicketRepository ticketRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -43,11 +55,13 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, TicketRepository ticketRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager, UserSalesStatsRepository userSalesStatsRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userSalesStatsRepository = userSalesStatsRepository;
+        this.ticketRepository = ticketRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -118,6 +132,12 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+
+        //add salesstats for this new user.
+        UserSalesStats userSalesStats = new UserSalesStats();
+        userSalesStats.inti(newUser);
+        userSalesStatsRepository.save(userSalesStats);
+
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -158,6 +178,12 @@ public class UserService {
             user.setAuthorities(authorities);
         }
         userRepository.save(user);
+
+        //add salesstats for this new user.
+        UserSalesStats userSalesStats = new UserSalesStats();
+        userSalesStats.inti(user);
+        userSalesStatsRepository.save(userSalesStats);
+
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -221,7 +247,23 @@ public class UserService {
     }
 
     public void deleteUser(String login) {
+
+        //delete sales stats and ticket record data, and all of those data is merged to admin user.
         userRepository.findOneByLogin(login).ifPresent(user -> {
+            UserSalesStats adminSalesStats = userSalesStatsRepository.findByUserName("admin");
+            UserSalesStats userSalesStats = userSalesStatsRepository.findByUserName(login);
+            adminSalesStats.setSalesAmout(adminSalesStats.getSalesAmout()+userSalesStats.getSalesAmout());
+            adminSalesStats.setTicketAmout(adminSalesStats.getTicketAmout()+userSalesStats.getTicketAmout());
+            adminSalesStats.setEcsAmout(adminSalesStats.getEcsAmout()+userSalesStats.getEcsAmout());
+            adminSalesStats.setFcsAmout(adminSalesStats.getFcsAmout()+userSalesStats.getFcsAmout());
+            userSalesStatsRepository.delete(userSalesStatsRepository.findByUserName(login));
+
+            for (Ticket ticket : ticketRepository.findByUserName(login))
+            {
+                ticket.setUser(userRepository.findOneByLogin("admin").get());
+                ticketRepository.save(ticket);
+            }
+
             userRepository.delete(user);
             this.clearUserCaches(user);
             log.debug("Deleted User: {}", user);

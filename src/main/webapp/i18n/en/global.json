@@ -135,7 +135,9 @@
         "idexists": "A new {{ entityName }} cannot already have an ID",
         "idnull": "Invalid ID",
         "ecszero": "No economic-class!",
-        "fcszero": "No frist-class!"
+        "fcszero": "No frist-class!",
+        "norecordedticket": "No recorded ticket! deleted yet.",
+        "hasforeignkey": "Please delete this user's tickets frist!"
     },
     "footer": "This is your footer"
 }

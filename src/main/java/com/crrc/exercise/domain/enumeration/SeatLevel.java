@@ -4,5 +4,8 @@ package com.crrc.exercise.domain.enumeration;
  * The SeatLevel enumeration.
  */
 public enum SeatLevel {
-    FCS, ECS
+    //frist-class seat
+    FCS,
+    //enconomy-class seat
+    ECS
 }

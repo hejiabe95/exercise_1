@@ -1,5 +1,7 @@
 {
-    "name": "Flight",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
     "fields": [
         {
             "fieldName": "flightCode",
@@ -30,14 +32,11 @@
             ]
         }
     ],
-    "relationships": [],
     "changelogDate": "20181109052147",
-    "entityTableName": "flight",
     "dto": "no",
-    "pagination": "infinite-scroll",
+    "searchEngine": false,
     "service": "no",
+    "entityTableName": "flight",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "infinite-scroll"
 }

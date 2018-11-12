@@ -23,6 +23,7 @@ export class FlightUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ flight }) => {
             this.flight = flight;
+            this.flight.departureDate = moment();
             this.departureDate = this.flight.departureDate != null ? this.flight.departureDate.format(DATE_TIME_FORMAT) : null;
         });
     }

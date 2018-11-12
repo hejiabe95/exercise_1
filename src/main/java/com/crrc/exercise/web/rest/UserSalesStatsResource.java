@@ -1,6 +1,7 @@
 package com.crrc.exercise.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.crrc.exercise.domain.User;
 import com.crrc.exercise.domain.UserSalesStats;
 import com.crrc.exercise.repository.UserSalesStatsRepository;
 import com.crrc.exercise.web.rest.errors.BadRequestAlertException;

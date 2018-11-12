@@ -125,10 +125,15 @@ public class TicketResource {
      */
     @DeleteMapping("/tickets/{id}")
     @Timed
-    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long id)
+    {
         log.debug("REST request to delete Ticket : {}", id);
 
-        ticketRepository.deleteById(id);
+        //Invalid ticket
+        if(!ticketSevice.deleteTicket(id))
+        {
+            return ResponseEntity.ok().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "norecordedticket","No recorded ticket! deleted yet.")).build();
+        }
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }
